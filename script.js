@@ -1,6 +1,6 @@
 /*
   =======================================================
-  MHALYD — EDIT HERE
+  MHALYD — STORE CONFIG
   =======================================================
 
   IMAGE FILES:
@@ -17,15 +17,30 @@
 
 const STORE = {
 
-  /* HERO IMAGE */
+  /* =====================================================
+     HERO IMAGE
+     ===================================================== */
+
   heroImage: "hero.png",
 
-  /* SOCIAL MEDIA */
+
+  /* =====================================================
+     SOCIAL MEDIA
+     ===================================================== */
+
   instagram: "https://www.instagram.com/mhalydcorp/",
   tiktok: "https://www.tiktok.com/@mhalyd",
 
-  /* PRODUCTS */
+
+  /* =====================================================
+     PRODUCTS
+     ===================================================== */
+
   products: {
+
+    /* ---------------------------------------------------
+       DULSE / 001 — ABYSSAL RELIQUARY
+       --------------------------------------------------- */
 
     "dulse-001": {
       code: "DULSE / 001",
@@ -34,10 +49,18 @@ const STORE = {
       price: "$27.99",
       sizes: "S / M / L / XL / XXL",
       image: "dulse-001.jpeg",
-      checkoutUrl: "",
+
+      checkoutUrl:
+        "https://buy.stripe.com/test_fZu00kaWO4bhaZmgqAgIo00",
+
       artClass: "art-one",
       shape: "shirt"
     },
+
+
+    /* ---------------------------------------------------
+       DULSE / 002 — DROWNED THORN
+       --------------------------------------------------- */
 
     "dulse-002": {
       code: "DULSE / 002",
@@ -46,10 +69,18 @@ const STORE = {
       price: "$27.99",
       sizes: "S / M / L / XL / XXL",
       image: "dulse-002.jpeg",
-      checkoutUrl: "",
+
+      checkoutUrl:
+        "https://buy.stripe.com/test_7sY4gA0iabDJgjGdeogIo01",
+
       artClass: "art-two",
       shape: "shirt"
     },
+
+
+    /* ---------------------------------------------------
+       DULSE / 003 — PALE MERIDIAN
+       --------------------------------------------------- */
 
     "dulse-003": {
       code: "DULSE / 003",
@@ -58,13 +89,18 @@ const STORE = {
       price: "$27.99",
       sizes: "S / M / L / XL / XXL",
       image: "dulse-003.jpeg",
-      checkoutUrl: "",
+
+      checkoutUrl:
+        "https://buy.stripe.com/test_4gMfZi2qi2392sQa2cgIo02",
+
       artClass: "art-three",
       shape: "shirt"
     }
 
   }
+
 };
+
 
 
 /*
@@ -73,39 +109,57 @@ const STORE = {
   =======================================================
 */
 
-const menuButton = document.querySelector(".menu-button");
-const nav = document.querySelector(".site-nav");
+const menuButton =
+  document.querySelector(".menu-button");
+
+const nav =
+  document.querySelector(".site-nav");
+
 
 if (menuButton && nav) {
 
-  menuButton.addEventListener("click", () => {
+  menuButton.addEventListener(
+    "click",
+    () => {
 
-    const open = document.body.classList.toggle("menu-open");
-
-    menuButton.setAttribute(
-      "aria-expanded",
-      String(open)
-    );
-
-  });
-
-
-  nav.querySelectorAll("a").forEach(link => {
-
-    link.addEventListener("click", () => {
-
-      document.body.classList.remove("menu-open");
+      const open =
+        document.body.classList.toggle(
+          "menu-open"
+        );
 
       menuButton.setAttribute(
         "aria-expanded",
-        "false"
+        String(open)
+      );
+
+    }
+  );
+
+
+  nav
+    .querySelectorAll("a")
+    .forEach(link => {
+
+      link.addEventListener(
+        "click",
+        () => {
+
+          document.body.classList.remove(
+            "menu-open"
+          );
+
+          menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+
+        }
       );
 
     });
 
-  });
-
 }
+
 
 
 /*
@@ -114,19 +168,28 @@ if (menuButton && nav) {
   =======================================================
 */
 
-const heroArt = document.querySelector(".hero-art");
+const heroArt =
+  document.querySelector(
+    ".hero-art"
+  );
 
-if (STORE.heroImage && heroArt) {
 
-  heroArt.classList.add("has-photo");
+if (
+  STORE.heroImage &&
+  heroArt
+) {
+
+  heroArt.classList.add(
+    "has-photo"
+  );
 
   heroArt.style.backgroundImage =
     `url("${STORE.heroImage}")`;
 
 
   /*
-    Remove the original abstract hero design
-    so only hero.png is visible.
+    Remove original abstract hero elements
+    so only hero.png remains visible.
   */
 
   heroArt
@@ -134,10 +197,13 @@ if (STORE.heroImage && heroArt) {
       ".orb, .metal-mark, .vertical-copy"
     )
     .forEach(element => {
+
       element.remove();
+
     });
 
 }
+
 
 
 /*
@@ -147,58 +213,100 @@ if (STORE.heroImage && heroArt) {
 */
 
 const dialog =
-  document.getElementById("product-dialog");
+  document.getElementById(
+    "product-dialog"
+  );
+
 
 const closeDialog =
   dialog
-    ? dialog.querySelector(".dialog-close")
+    ? dialog.querySelector(
+        ".dialog-close"
+      )
     : null;
 
+
 const dialogArt =
-  document.getElementById("dialog-art");
+  document.getElementById(
+    "dialog-art"
+  );
+
 
 const dialogCode =
-  document.getElementById("dialog-code");
+  document.getElementById(
+    "dialog-code"
+  );
+
 
 const dialogTitle =
-  document.getElementById("dialog-title");
+  document.getElementById(
+    "dialog-title"
+  );
+
 
 const dialogDescription =
-  document.getElementById("dialog-description");
+  document.getElementById(
+    "dialog-description"
+  );
+
 
 const dialogPrice =
-  document.getElementById("dialog-price");
+  document.getElementById(
+    "dialog-price"
+  );
+
 
 const dialogSizes =
-  document.getElementById("dialog-sizes");
+  document.getElementById(
+    "dialog-sizes"
+  );
+
 
 const checkoutButton =
-  document.getElementById("checkout-button");
+  document.getElementById(
+    "checkout-button"
+  );
+
 
 const checkoutStatus =
-  document.getElementById("checkout-status");
+  document.getElementById(
+    "checkout-status"
+  );
+
 
 
 /*
   =======================================================
-  PRODUCT IMAGE
+  PRODUCT IMAGE FUNCTION
   =======================================================
 */
 
-function applyProductImage(element, product) {
+function applyProductImage(
+  element,
+  product
+) {
 
-  if (!element || !product) {
+  if (
+    !element ||
+    !product
+  ) {
     return;
   }
 
-  element.style.backgroundImage = "";
 
-  element.classList.remove("has-photo");
+  element.style.backgroundImage =
+    "";
+
+  element.classList.remove(
+    "has-photo"
+  );
 
 
   if (product.image) {
 
-    element.classList.add("has-photo");
+    element.classList.add(
+      "has-photo"
+    );
 
     element.style.backgroundImage =
       `url("${product.image}")`;
@@ -206,6 +314,7 @@ function applyProductImage(element, product) {
   }
 
 }
+
 
 
 /*
@@ -216,41 +325,70 @@ function applyProductImage(element, product) {
 
 function openProduct(id) {
 
-  const p = STORE.products[id];
+  const product =
+    STORE.products[id];
 
-  if (!p || !dialog) {
+
+  if (
+    !product ||
+    !dialog
+  ) {
     return;
   }
 
 
+
+  /*
+    PRODUCT INFORMATION
+  */
+
   if (dialogCode) {
-    dialogCode.textContent = p.code;
+
+    dialogCode.textContent =
+      product.code;
+
   }
 
 
   if (dialogTitle) {
-    dialogTitle.textContent = p.title;
+
+    dialogTitle.textContent =
+      product.title;
+
   }
 
 
   if (dialogDescription) {
-    dialogDescription.textContent = p.description;
+
+    dialogDescription.textContent =
+      product.description;
+
   }
 
 
   if (dialogPrice) {
-    dialogPrice.textContent = p.price;
+
+    dialogPrice.textContent =
+      product.price;
+
   }
 
 
   if (dialogSizes) {
-    dialogSizes.textContent = p.sizes;
+
+    dialogSizes.textContent =
+      product.sizes;
+
   }
 
 
   if (checkoutStatus) {
-    checkoutStatus.textContent = "";
+
+    checkoutStatus.textContent =
+      "";
+
   }
+
 
 
   /*
@@ -260,28 +398,30 @@ function openProduct(id) {
   if (dialogArt) {
 
     dialogArt.className =
-      `dialog-art product-art ${p.artClass}`;
+      `dialog-art product-art ${product.artClass}`;
+
 
     applyProductImage(
       dialogArt,
-      p
+      product
     );
 
 
-    if (p.image) {
+    if (product.image) {
 
       /*
-        Remove fake shirt graphics
-        when real photography exists.
+        Remove fake shirt artwork
+        because we have a real product image.
       */
 
-      dialogArt.innerHTML = "";
+      dialogArt.innerHTML =
+        "";
 
     } else {
 
       dialogArt.innerHTML =
         `<span class="shirt-shape ${
-          p.shape.includes("alt")
+          product.shape.includes("alt")
             ? "alt"
             : ""
         }" aria-hidden="true"></span>`;
@@ -291,16 +431,17 @@ function openProduct(id) {
   }
 
 
+
   /*
-    CHECKOUT
+    STRIPE CHECKOUT
   */
 
   if (checkoutButton) {
 
-    if (p.checkoutUrl) {
+    if (product.checkoutUrl) {
 
       checkoutButton.href =
-        p.checkoutUrl;
+        product.checkoutUrl;
 
       checkoutButton.removeAttribute(
         "aria-disabled"
@@ -308,7 +449,8 @@ function openProduct(id) {
 
     } else {
 
-      checkoutButton.href = "#";
+      checkoutButton.href =
+        "#";
 
       checkoutButton.setAttribute(
         "aria-disabled",
@@ -320,9 +462,15 @@ function openProduct(id) {
   }
 
 
+
+  /*
+    OPEN POPUP
+  */
+
   dialog.showModal();
 
 }
+
 
 
 /*
@@ -332,19 +480,23 @@ function openProduct(id) {
 */
 
 document
-  .querySelectorAll(".product-card")
+  .querySelectorAll(
+    ".product-card"
+  )
   .forEach(card => {
 
     const id =
       card.dataset.product;
 
-    const p =
+
+    const product =
       STORE.products[id];
 
 
-    if (!p) {
+    if (!product) {
       return;
     }
+
 
 
     const title =
@@ -352,15 +504,18 @@ document
         ".product-meta h3"
       );
 
+
     const description =
       card.querySelector(
         ".product-meta div p"
       );
 
+
     const price =
       card.querySelector(
         ".price"
       );
+
 
     const productImage =
       card.querySelector(
@@ -368,24 +523,34 @@ document
       );
 
 
+
     /*
       PRODUCT TEXT
-    */
+  */
 
     if (title) {
-      title.textContent = p.title;
+
+      title.textContent =
+        product.title;
+
     }
 
 
     if (description) {
+
       description.textContent =
-        p.description;
+        product.description;
+
     }
 
 
     if (price) {
-      price.textContent = p.price;
+
+      price.textContent =
+        product.price;
+
     }
+
 
 
     /*
@@ -396,14 +561,14 @@ document
 
       applyProductImage(
         productImage,
-        p
+        product
       );
 
 
-      if (p.image) {
+      if (product.image) {
 
         /*
-          Remove all old fake garment drawings.
+          Remove old placeholder garment shapes.
         */
 
         productImage
@@ -411,7 +576,9 @@ document
             ".shirt-shape, .cap-shape"
           )
           .forEach(element => {
+
             element.remove();
+
           });
 
       }
@@ -419,8 +586,9 @@ document
     }
 
 
+
     /*
-      OPEN PRODUCT BUTTON
+      OPEN PRODUCT
     */
 
     card
@@ -439,13 +607,17 @@ document
   });
 
 
+
 /*
   =======================================================
   CLOSE PRODUCT DIALOG
   =======================================================
 */
 
-if (closeDialog && dialog) {
+if (
+  closeDialog &&
+  dialog
+) {
 
   closeDialog.addEventListener(
     "click",
@@ -484,9 +656,10 @@ if (closeDialog && dialog) {
 }
 
 
+
 /*
   =======================================================
-  CHECKOUT
+  CHECKOUT BUTTON
   =======================================================
 */
 
@@ -520,6 +693,7 @@ if (checkoutButton) {
 }
 
 
+
 /*
   =======================================================
   NEWSLETTER
@@ -530,6 +704,7 @@ const newsletterForm =
   document.getElementById(
     "newsletter-form"
   );
+
 
 const formStatus =
   document.getElementById(
@@ -559,6 +734,7 @@ if (newsletterForm) {
 }
 
 
+
 /*
   =======================================================
   SOCIAL LINKS
@@ -569,6 +745,7 @@ const instagramLink =
   document.getElementById(
     "instagram-link"
   );
+
 
 const tiktokLink =
   document.getElementById(
@@ -590,6 +767,7 @@ if (tiktokLink) {
     STORE.tiktok;
 
 }
+
 
 
 /*
