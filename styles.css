@@ -363,3 +363,37 @@ button { color: inherit; }
   html { scroll-behavior:auto; }
   *, *::before, *::after { transition-duration:.01ms!important; animation-duration:.01ms!important; animation-iteration-count:1!important; }
 }
+/* =========================================
+   MHALYD — FULL PRODUCT IMAGE DISPLAY
+   Show complete product photography
+   ========================================= */
+
+.product-image.has-photo,
+.dialog-art.has-photo {
+  background-size: contain !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-color: #080808 !important;
+}
+
+/* Product cards sized for the portrait photography */
+.product-image {
+  aspect-ratio: 4 / 5 !important;
+}
+
+/* Keep old placeholder graphics hidden */
+.product-art.has-photo .shirt-shape,
+.product-art.has-photo .cap-shape {
+  display: none !important;
+}
+
+.product-art.has-photo::after {
+  display: none !important;
+}
+
+/* Product number stays visible */
+.product-art.has-photo .product-code {
+  display: block !important;
+  z-index: 5;
+  color: white;
+}
