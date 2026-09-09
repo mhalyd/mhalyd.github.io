@@ -1,49 +1,65 @@
 /*
-  MHALYD STORE CONFIG
-  -------------------------------------------------------
-  1) Replace each price and checkoutUrl after creating the product in Stripe.
-  2) In Stripe Payment Links, add a REQUIRED dropdown custom field called SIZE
-     for T-shirts (S, M, L, XL, etc.).
-  3) Enable billing/shipping address collection and shipping rates as needed.
-  4) Replace Instagram/TikTok URLs below.
+  =======================================================
+  MHALYD — EDIT HERE
+  =======================================================
+  This top block is the only place you normally need to edit.
+
+  PHOTO FILENAMES:
+  - hero.jpg
+  - dulse-001.jpeg
+  - dulse-002.jpeg
+  - dulse-003.jpeg
+
+  Upload those image files to the SAME level as index.html.
+  If an image field is left blank, the original abstract artwork remains.
 */
 
 const STORE = {
-  instagram: "https://www.instagram.com/",
-  tiktok: "https://www.tiktok.com/",
+  heroImage: "", // Example: "hero.jpg"
+
+  instagram: "https://www.instagram.com/mhalydcorp/",
+  tiktok: "https://www.tiktok.com/@mhalyd",
+
   products: {
     "dulse-001": {
       code: "DULSE / 001",
-      title: "DULSE / 001 TEE",
-      description: "Heavyweight T-shirt · Black",
-      price: "$00.00",
-      sizes: "S / M / L / XL",
-      checkoutUrl: "",
+      title: "ABYSSAL RELIQUARY",
+      description: "Heavyweight T-shirt · Washed Charcoal",
+      price: "$27.99",
+      sizes: "S / M / L / XL / XXL",
+      image: "dulse-001.jpeg",
+      checkoutUrl: "", // Paste Stripe Payment Link here later
       artClass: "art-one",
       shape: "shirt"
     },
+
     "dulse-002": {
       code: "DULSE / 002",
-      title: "DULSE / 002 TEE",
-      description: "Heavyweight T-shirt · Ash",
-      price: "$00.00",
-      sizes: "S / M / L / XL",
+      title: "DROWNED THORN",
+      description: "Heavyweight T-shirt · Black",
+      price: "$27.99",
+      sizes: "S / M / L / XL / XXL",
+      image: "dulse-002.jpeg",
       checkoutUrl: "",
       artClass: "art-two",
       shape: "shirt alt"
     },
+
     "dulse-003": {
       code: "DULSE / 003",
-      title: "DULSE / 003 CAP",
-      description: "Limited cap · Black / Silver",
-      price: "$00.00",
-      sizes: "ONE SIZE",
+      title: "PALE MERIDIAN",
+      description: "Heavyweight T-shirt · Bone",
+      price: "$27.99",
+      sizes: "S / M / L / XL / XXL",
+      image: "dulse-003.jpeg",
       checkoutUrl: "",
       artClass: "art-three",
-      shape: "cap"
+      shape: "shirt"
     }
   }
 };
+
+/* Everything below this line powers the storefront. */
 
 const menuButton = document.querySelector('.menu-button');
 const nav = document.querySelector('.site-nav');
@@ -58,6 +74,13 @@ nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
   menuButton.setAttribute('aria-expanded', 'false');
 }));
 
+// Optional hero photo
+const heroArt = document.querySelector('.hero-art');
+if (STORE.heroImage && heroArt) {
+  heroArt.classList.add('has-photo');
+  heroArt.style.backgroundImage = `url("${STORE.heroImage}")`;
+}
+
 const dialog = document.getElementById('product-dialog');
 const closeDialog = dialog.querySelector('.dialog-close');
 const dialogArt = document.getElementById('dialog-art');
@@ -68,6 +91,16 @@ const dialogPrice = document.getElementById('dialog-price');
 const dialogSizes = document.getElementById('dialog-sizes');
 const checkoutButton = document.getElementById('checkout-button');
 const checkoutStatus = document.getElementById('checkout-status');
+
+function applyProductImage(element, product) {
+  element.style.backgroundImage = '';
+  element.classList.remove('has-photo');
+
+  if (product.image) {
+    element.classList.add('has-photo');
+    element.style.backgroundImage = `url("${product.image}")`;
+  }
+}
 
 function openProduct(id) {
   const p = STORE.products[id];
@@ -81,9 +114,15 @@ function openProduct(id) {
   checkoutStatus.textContent = '';
 
   dialogArt.className = `dialog-art product-art ${p.artClass}`;
-  dialogArt.innerHTML = p.shape.startsWith('cap')
-    ? '<span class="cap-shape" aria-hidden="true"></span>'
-    : `<span class="shirt-shape ${p.shape.includes('alt') ? 'alt' : ''}" aria-hidden="true"></span>`;
+  applyProductImage(dialogArt, p);
+
+  if (p.image) {
+    dialogArt.innerHTML = '';
+  } else {
+    dialogArt.innerHTML = p.shape.startsWith('cap')
+      ? '<span class="cap-shape" aria-hidden="true"></span>'
+      : `<span class="shirt-shape ${p.shape.includes('alt') ? 'alt' : ''}" aria-hidden="true"></span>`;
+  }
 
   if (p.checkoutUrl) {
     checkoutButton.href = p.checkoutUrl;
@@ -99,8 +138,21 @@ function openProduct(id) {
 document.querySelectorAll('.product-card').forEach(card => {
   const id = card.dataset.product;
   const p = STORE.products[id];
-  if (p) card.querySelector('.price').textContent = p.price;
-  card.querySelectorAll('.product-image, .quick-view').forEach(btn => btn.addEventListener('click', () => openProduct(id)));
+  if (!p) return;
+
+  const title = card.querySelector('.product-meta h3');
+  const description = card.querySelector('.product-meta div p');
+  const price = card.querySelector('.price');
+  const productImage = card.querySelector('.product-image');
+
+  if (title) title.textContent = p.title;
+  if (description) description.textContent = p.description;
+  if (price) price.textContent = p.price;
+  if (productImage) applyProductImage(productImage, p);
+
+  card.querySelectorAll('.product-image, .quick-view').forEach(btn =>
+    btn.addEventListener('click', () => openProduct(id))
+  );
 });
 
 closeDialog.addEventListener('click', () => dialog.close());
