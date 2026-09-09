@@ -397,3 +397,25 @@ button { color: inherit; }
   z-index: 5;
   color: white;
 }
+/* =========================================
+   MHALYD — HERO IMAGE
+   ========================================= */
+
+.hero-art.has-photo {
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-color: #080808 !important;
+}
+
+/* MOBILE HERO */
+
+@media (max-width: 768px) {
+
+  .hero-art.has-photo {
+    min-height: 820px !important;
+    background-size: cover !important;
+    background-position: center center !important;
+  }
+
+}
