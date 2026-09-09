@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=UnifrakturCook:wght@700&display=swap');
 :root {
   --bg: #080808;
   --paper: #efefec;
@@ -5,6 +6,10 @@
   --line: rgba(255,255,255,.16);
   --ink: #111;
   --max: 1500px;
+
+  --font-body: "Inter", Arial, sans-serif;
+  --font-editorial: "Cormorant Garamond", serif;
+  --font-gothic: "UnifrakturCook", serif;
 }
 
 * { box-sizing: border-box; }
@@ -13,7 +18,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--paper);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
@@ -31,7 +36,39 @@ button { color: inherit; }
   opacity: .035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
 }
+#hero-title,
+.manifesto h2,
+.section-heading h2,
+.editorial-copy h2,
+.about-grid h2,
+.newsletter h2 {
+  font-family: var(--font-editorial);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: -.03em;
+}
 
+.hero-text,
+.manifesto-grid p,
+.about-copy p,
+.editorial-copy > p:last-child,
+.newsletter > p:not(.eyebrow):not(.form-status) {
+  font-family: var(--font-editorial);
+  letter-spacing: .01em;
+}
+
+.site-nav a,
+.footer-links a,
+.announcement,
+.eyebrow,
+.stock-note,
+.product-meta h3,
+.quick-view,
+.newsletter-form button {
+  font-family: var(--font-body);
+  text-transform: uppercase;
+  letter-spacing: .16em;
+}
 .announcement {
   min-height: 30px;
   display: grid;
@@ -58,9 +95,10 @@ button { color: inherit; }
   backdrop-filter: blur(18px);
 }
 .wordmark {
-  font-size: 19px;
-  font-weight: 900;
-  letter-spacing: .34em;
+  font-size: 24px;
+  font-family: var(--font-gothic);
+  font-weight: 700;
+  letter-spacing: .14em;
   line-height: 1;
 }
 .site-nav { display: flex; gap: 30px; }
