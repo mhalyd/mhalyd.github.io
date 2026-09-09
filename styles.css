@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=UnifrakturCook:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Inter:wght@400;500;600;700;800&family=UnifrakturCook:wght@700&display=swap');
+
 :root {
   --bg: #080808;
   --paper: #efefec;
@@ -6,10 +7,9 @@
   --line: rgba(255,255,255,.16);
   --ink: #111;
   --max: 1500px;
-
-  --font-body: "Inter", Arial, sans-serif;
-  --font-editorial: "Cormorant Garamond", serif;
-  --font-gothic: "UnifrakturCook", serif;
+  --font-body: 'Inter', Arial, sans-serif;
+  --font-editorial: 'Cormorant Garamond', Georgia, serif;
+  --font-gothic: 'UnifrakturCook', Georgia, serif;
 }
 
 * { box-sizing: border-box; }
@@ -36,39 +36,7 @@ button { color: inherit; }
   opacity: .035;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
 }
-#hero-title,
-.manifesto h2,
-.section-heading h2,
-.editorial-copy h2,
-.about-grid h2,
-.newsletter h2 {
-  font-family: var(--font-editorial);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: -.03em;
-}
 
-.hero-text,
-.manifesto-grid p,
-.about-copy p,
-.editorial-copy > p:last-child,
-.newsletter > p:not(.eyebrow):not(.form-status) {
-  font-family: var(--font-editorial);
-  letter-spacing: .01em;
-}
-
-.site-nav a,
-.footer-links a,
-.announcement,
-.eyebrow,
-.stock-note,
-.product-meta h3,
-.quick-view,
-.newsletter-form button {
-  font-family: var(--font-body);
-  text-transform: uppercase;
-  letter-spacing: .16em;
-}
 .announcement {
   min-height: 30px;
   display: grid;
@@ -95,12 +63,62 @@ button { color: inherit; }
   backdrop-filter: blur(18px);
 }
 .wordmark {
-  font-size: 24px;
   font-family: var(--font-gothic);
+  font-size: 30px;
   font-weight: 700;
-  letter-spacing: .14em;
+  letter-spacing: .03em;
   line-height: 1;
 }
+
+
+/* MHALYD gothic editorial typography */
+.hero h1,
+.manifesto h2,
+.section-heading h2,
+.editorial-copy h2,
+.about-grid h2,
+.newsletter h2,
+.product-dialog h2 {
+  font-family: var(--font-editorial);
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-size: clamp(64px, 10vw, 160px);
+  line-height: .72;
+  letter-spacing: -.055em;
+}
+
+.manifesto h2,
+.editorial-copy h2,
+.about-grid h2,
+.newsletter h2 {
+  letter-spacing: -.035em;
+}
+
+.hero-text,
+.manifesto-grid p,
+.about-copy,
+.editorial-copy > p:last-child,
+.newsletter > p:not(.eyebrow):not(.form-status) {
+  font-family: var(--font-editorial);
+  font-size-adjust: none;
+}
+
+.eyebrow,
+.stock-note,
+.announcement,
+.site-nav a,
+.footer-links a,
+.product-meta h3,
+.quick-view,
+.button,
+.text-link,
+.newsletter-form,
+.vertical-copy {
+  font-family: var(--font-body);
+}
+
 .site-nav { display: flex; gap: 30px; }
 .site-nav a, .footer-links a {
   font-size: 11px;
