@@ -9,27 +9,30 @@
   - dulse-002.jpeg
   - dulse-003.jpeg
 
-  Upload all image files to the SAME level as:
-  index.html
-  styles.css
-  script.js
+  PRE-ORDER:
+  Opens September 10, 2026
+  Official release November 15, 2026
+  Limited quantities
 */
 
 const STORE = {
 
   /* =====================================================
-     HERO IMAGE
+     BRAND / PRE-ORDER
      ===================================================== */
 
   heroImage: "hero.png",
 
-
-  /* =====================================================
-     SOCIAL MEDIA
-     ===================================================== */
-
   instagram: "https://www.instagram.com/mhalydcorp/",
   tiktok: "https://www.tiktok.com/@mhalyd",
+  email: "Mhalyd@proton.me",
+
+  whatsappNumber: "19392628824",
+
+  collection: "DULSE / COLLECTION 001",
+  preorderStart: "September 10, 2026",
+  releaseDate: "November 15, 2026",
+  limitedQuantities: true,
 
 
   /* =====================================================
@@ -37,10 +40,6 @@ const STORE = {
      ===================================================== */
 
   products: {
-
-    /* ---------------------------------------------------
-       DULSE / 001 — ABYSSAL RELIQUARY
-       --------------------------------------------------- */
 
     "dulse-001": {
       code: "DULSE / 001",
@@ -50,17 +49,14 @@ const STORE = {
       sizes: "S / M / L / XL / XXL",
       image: "dulse-001.jpeg",
 
-      checkoutUrl:
+      /* Stripe test link saved for later */
+      stripePaymentUrl:
         "https://buy.stripe.com/test_fZu00kaWO4bhaZmgqAgIo00",
 
       artClass: "art-one",
       shape: "shirt"
     },
 
-
-    /* ---------------------------------------------------
-       DULSE / 002 — DROWNED THORN
-       --------------------------------------------------- */
 
     "dulse-002": {
       code: "DULSE / 002",
@@ -70,17 +66,14 @@ const STORE = {
       sizes: "S / M / L / XL / XXL",
       image: "dulse-002.jpeg",
 
-      checkoutUrl:
+      /* Stripe test link saved for later */
+      stripePaymentUrl:
         "https://buy.stripe.com/test_7sY4gA0iabDJgjGdeogIo01",
 
       artClass: "art-two",
       shape: "shirt"
     },
 
-
-    /* ---------------------------------------------------
-       DULSE / 003 — PALE MERIDIAN
-       --------------------------------------------------- */
 
     "dulse-003": {
       code: "DULSE / 003",
@@ -90,7 +83,8 @@ const STORE = {
       sizes: "S / M / L / XL / XXL",
       image: "dulse-003.jpeg",
 
-      checkoutUrl:
+      /* Stripe test link saved for later */
+      stripePaymentUrl:
         "https://buy.stripe.com/test_4gMfZi2qi2392sQa2cgIo02",
 
       artClass: "art-three",
@@ -98,9 +92,99 @@ const STORE = {
     }
 
   }
-
 };
 
+
+/*
+  =======================================================
+  WHATSAPP PRE-ORDER LINK
+  =======================================================
+*/
+
+function buildWhatsAppUrl(product) {
+
+  const message =
+`Hi MHALYD, I'd like to pre-order ${product.title} from ${STORE.collection}.
+
+Price: ${product.price}
+Size:
+Quantity: 1
+
+I understand that this is a limited pre-order and the official release date is ${STORE.releaseDate}.`;
+
+  return `https://wa.me/${STORE.whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+
+
+/*
+  =======================================================
+  PRE-ORDER ANNOUNCEMENT
+  =======================================================
+*/
+
+const announcement =
+  document.querySelector(".announcement");
+
+if (announcement) {
+
+  announcement.textContent =
+    `PRE-ORDER NOW OPEN — ${STORE.collection} — OFFICIAL RELEASE ${STORE.releaseDate.toUpperCase()} — LIMITED QUANTITIES`;
+}
+
+
+/*
+  =======================================================
+  PRE-ORDER BANNER
+  =======================================================
+*/
+
+const heroSection =
+  document.querySelector(".hero");
+
+if (
+  heroSection &&
+  !document.querySelector(".preorder-banner")
+) {
+
+  const preorderBanner =
+    document.createElement("section");
+
+  /*
+    Uses the existing manifesto styling
+    so it stays consistent with MHALYD.
+  */
+  preorderBanner.className =
+    "manifesto preorder-banner";
+
+  preorderBanner.innerHTML = `
+    <p>PRE-ORDER / NOW OPEN</p>
+
+    <h2>
+      DULSE / COLLECTION 001<br>
+      RELEASES NOVEMBER 15, 2026
+    </h2>
+
+    <div class="manifesto-grid">
+
+      <p>
+        Pre-orders are open beginning September 10, 2026.
+        Secure your piece before the official release.
+      </p>
+
+      <p>
+        This collection is available in limited quantities.
+        Once the allocated pre-order inventory is reserved,
+        availability may close before release day.
+      </p>
+
+    </div>
+  `;
+
+  heroSection.insertAdjacentElement(
+    "afterend",
+    preorderBanner
+  );
+}
 
 
 /*
@@ -114,7 +198,6 @@ const menuButton =
 
 const nav =
   document.querySelector(".site-nav");
-
 
 if (menuButton && nav) {
 
@@ -131,7 +214,6 @@ if (menuButton && nav) {
         "aria-expanded",
         String(open)
       );
-
     }
   );
 
@@ -152,14 +234,10 @@ if (menuButton && nav) {
             "aria-expanded",
             "false"
           );
-
         }
       );
-
     });
-
 }
-
 
 
 /*
@@ -172,7 +250,6 @@ const heroArt =
   document.querySelector(
     ".hero-art"
   );
-
 
 if (
   STORE.heroImage &&
@@ -189,7 +266,7 @@ if (
 
   /*
     Remove original abstract hero elements
-    so only hero.png remains visible.
+    so only hero.png remains.
   */
 
   heroArt
@@ -199,11 +276,8 @@ if (
     .forEach(element => {
 
       element.remove();
-
     });
-
 }
-
 
 
 /*
@@ -217,7 +291,6 @@ const dialog =
     "product-dialog"
   );
 
-
 const closeDialog =
   dialog
     ? dialog.querySelector(
@@ -225,54 +298,50 @@ const closeDialog =
       )
     : null;
 
-
 const dialogArt =
   document.getElementById(
     "dialog-art"
   );
-
 
 const dialogCode =
   document.getElementById(
     "dialog-code"
   );
 
-
 const dialogTitle =
   document.getElementById(
     "dialog-title"
   );
-
 
 const dialogDescription =
   document.getElementById(
     "dialog-description"
   );
 
-
 const dialogPrice =
   document.getElementById(
     "dialog-price"
   );
-
 
 const dialogSizes =
   document.getElementById(
     "dialog-sizes"
   );
 
-
 const checkoutButton =
   document.getElementById(
     "checkout-button"
   );
-
 
 const checkoutStatus =
   document.getElementById(
     "checkout-status"
   );
 
+const checkoutNote =
+  document.querySelector(
+    ".checkout-note"
+  );
 
 
 /*
@@ -293,7 +362,6 @@ function applyProductImage(
     return;
   }
 
-
   element.style.backgroundImage =
     "";
 
@@ -310,11 +378,8 @@ function applyProductImage(
 
     element.style.backgroundImage =
       `url("${product.image}")`;
-
   }
-
 }
-
 
 
 /*
@@ -328,14 +393,12 @@ function openProduct(id) {
   const product =
     STORE.products[id];
 
-
   if (
     !product ||
     !dialog
   ) {
     return;
   }
-
 
 
   /*
@@ -346,7 +409,6 @@ function openProduct(id) {
 
     dialogCode.textContent =
       product.code;
-
   }
 
 
@@ -354,7 +416,6 @@ function openProduct(id) {
 
     dialogTitle.textContent =
       product.title;
-
   }
 
 
@@ -362,7 +423,6 @@ function openProduct(id) {
 
     dialogDescription.textContent =
       product.description;
-
   }
 
 
@@ -370,7 +430,6 @@ function openProduct(id) {
 
     dialogPrice.textContent =
       product.price;
-
   }
 
 
@@ -378,7 +437,6 @@ function openProduct(id) {
 
     dialogSizes.textContent =
       product.sizes;
-
   }
 
 
@@ -386,9 +444,18 @@ function openProduct(id) {
 
     checkoutStatus.textContent =
       "";
-
   }
 
+
+  /*
+    PRE-ORDER INFORMATION
+  */
+
+  if (checkoutNote) {
+
+    checkoutNote.textContent =
+      `Pre-order now. Official release: ${STORE.releaseDate}. Limited quantities available.`;
+  }
 
 
   /*
@@ -425,42 +492,36 @@ function openProduct(id) {
             ? "alt"
             : ""
         }" aria-hidden="true"></span>`;
-
     }
-
   }
 
 
-
   /*
-    STRIPE CHECKOUT
+    WHATSAPP PRE-ORDER
   */
 
   if (checkoutButton) {
 
-    if (product.checkoutUrl) {
+    checkoutButton.href =
+      buildWhatsAppUrl(product);
 
-      checkoutButton.href =
-        product.checkoutUrl;
+    checkoutButton.removeAttribute(
+      "aria-disabled"
+    );
 
-      checkoutButton.removeAttribute(
-        "aria-disabled"
-      );
+    checkoutButton.textContent =
+      "PRE-ORDER VIA WHATSAPP";
 
-    } else {
+    checkoutButton.setAttribute(
+      "target",
+      "_blank"
+    );
 
-      checkoutButton.href =
-        "#";
-
-      checkoutButton.setAttribute(
-        "aria-disabled",
-        "true"
-      );
-
-    }
-
+    checkoutButton.setAttribute(
+      "rel",
+      "noreferrer"
+    );
   }
-
 
 
   /*
@@ -468,9 +529,7 @@ function openProduct(id) {
   */
 
   dialog.showModal();
-
 }
-
 
 
 /*
@@ -488,7 +547,6 @@ document
     const id =
       card.dataset.product;
 
-
     const product =
       STORE.products[id];
 
@@ -496,7 +554,6 @@ document
     if (!product) {
       return;
     }
-
 
 
     const title =
@@ -523,16 +580,14 @@ document
       );
 
 
-
     /*
       PRODUCT TEXT
-  */
+    */
 
     if (title) {
 
       title.textContent =
         product.title;
-
     }
 
 
@@ -540,7 +595,6 @@ document
 
       description.textContent =
         product.description;
-
     }
 
 
@@ -548,9 +602,7 @@ document
 
       price.textContent =
         product.price;
-
     }
-
 
 
     /*
@@ -578,13 +630,9 @@ document
           .forEach(element => {
 
             element.remove();
-
           });
-
       }
-
     }
-
 
 
     /*
@@ -601,11 +649,8 @@ document
           "click",
           () => openProduct(id)
         );
-
       });
-
   });
-
 
 
 /*
@@ -624,7 +669,6 @@ if (
     () => {
 
       dialog.close();
-
     }
   );
 
@@ -647,51 +691,10 @@ if (
       if (!inside) {
 
         dialog.close();
-
       }
-
     }
   );
-
 }
-
-
-
-/*
-  =======================================================
-  CHECKOUT BUTTON
-  =======================================================
-*/
-
-if (checkoutButton) {
-
-  checkoutButton.addEventListener(
-    "click",
-    event => {
-
-      if (
-        checkoutButton.getAttribute(
-          "aria-disabled"
-        ) === "true"
-      ) {
-
-        event.preventDefault();
-
-
-        if (checkoutStatus) {
-
-          checkoutStatus.textContent =
-            "Online checkout is coming soon.";
-
-        }
-
-      }
-
-    }
-  );
-
-}
-
 
 
 /*
@@ -704,7 +707,6 @@ const newsletterForm =
   document.getElementById(
     "newsletter-form"
   );
-
 
 const formStatus =
   document.getElementById(
@@ -725,19 +727,15 @@ if (newsletterForm) {
 
         formStatus.textContent =
           "Thank you for entering the MHALYD archive.";
-
       }
-
     }
   );
-
 }
-
 
 
 /*
   =======================================================
-  SOCIAL LINKS
+  SOCIAL LINKS / EMAIL
   =======================================================
 */
 
@@ -745,7 +743,6 @@ const instagramLink =
   document.getElementById(
     "instagram-link"
   );
-
 
 const tiktokLink =
   document.getElementById(
@@ -757,7 +754,6 @@ if (instagramLink) {
 
   instagramLink.href =
     STORE.instagram;
-
 }
 
 
@@ -765,9 +761,23 @@ if (tiktokLink) {
 
   tiktokLink.href =
     STORE.tiktok;
-
 }
 
+
+/*
+  Keeps every email link synced
+  with the official MHALYD email.
+*/
+
+document
+  .querySelectorAll(
+    'a[href^="mailto:"]'
+  )
+  .forEach(link => {
+
+    link.href =
+      `mailto:${STORE.email}`;
+  });
 
 
 /*
@@ -786,5 +796,4 @@ if (year) {
 
   year.textContent =
     new Date().getFullYear();
-
 }
